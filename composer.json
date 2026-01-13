@@ -1,0 +1,14 @@
+{
+  "name": "becisi/telegram-bot",
+  "description": "A simple Telegram Bot",
+  "version": "1.0.0",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Jeishanul Haque Shishir",
+      "email": "shishirjeishanul@gmail.com"
+    }
+  ],
+  "require": {}
+}
+
