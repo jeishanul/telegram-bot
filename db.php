@@ -25,6 +25,21 @@ try {
             status TEXT DEFAULT 'pending'
         );
     ");
+
+    // Auto-seed default tasks if the table is empty
+    $stmt = $db->query("SELECT COUNT(*) FROM tasks");
+    if ($stmt->fetchColumn() == 0) {
+        $db->exec("INSERT INTO tasks (title, reward) VALUES
+        ('Join our Telegram channel', 20),
+        ('Follow us on X/Twitter', 15),
+        ('Subscribe to YouTube channel', 25),
+        ('Like & retweet pinned post', 30),
+        ('Visit our website', 10)
+    ");
+        // Optional: log this for debugging
+        file_put_contents("debug.log", "Default tasks seeded\n", FILE_APPEND);
+    }
+
 } catch (Exception $e) {
     file_put_contents("debug.log", $e->getMessage(), FILE_APPEND);
     exit;
