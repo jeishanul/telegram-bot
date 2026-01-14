@@ -1,10 +1,17 @@
 <?php
 // seed.php
 try {
-    $db = new PDO('sqlite:' . __DIR__ . '/db/database.sqlite');
+    $db_path = __DIR__ . '/database/bot.sqlite';
+    
+    // Ensure the file exists (creates automatically)
+    if (!file_exists($db_path)) {
+        file_put_contents($db_path, '');
+    }
+
+    $db = new PDO('sqlite:' . $db_path);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Create table if not exists
+    // Create tables
     $db->exec("CREATE TABLE IF NOT EXISTS users (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
         username TEXT,
@@ -18,7 +25,7 @@ try {
         completed INTEGER DEFAULT 0
     )");
 
-    // Insert some default users
+    // Insert default users
     $db->exec("INSERT INTO users (username, chat_id) VALUES 
         ('Jeishanul', 2077162700),
         ('TestUser', 1234567890)
